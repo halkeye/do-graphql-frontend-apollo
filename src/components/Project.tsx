@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useLoaderData } from "react-router-dom";
-import { gql, useSuspenseQuery } from "@apollo/client";
 import ResourcesList from "./ResourceList/ResourcesList";
+import { gql } from "../__generated__/gql";
+import { useSuspenseQuery } from "@apollo/client";
+import { ProjectQueryQuery } from "../__generated__/graphql";
 
 const ProjectQuery = gql(/* GraphQL */ `
   query ProjectQuery($id: ID!) {
@@ -41,6 +43,8 @@ interface Props {
   id: string
 }
 
+type ProjectType = Extract<ProjectQueryQuery['project'], { __typename: 'Project' }>
+
 export default function Project() {
   const props = useLoaderData() as Props;
   console.log('ProjectQuery', ProjectQuery);
@@ -49,11 +53,10 @@ export default function Project() {
     variables: { id: props.id }
   });
   console.log('project errors', error)
-  const project = data.project;
-  console.log('Project.data', project);
-  if (!project) {
+  if (!data || !data.project) {
     throw new Error('no data???');
   }
+  const project = data.project as ProjectType;
 
   return (
     <React.Suspense>

@@ -1,4 +1,5 @@
 import { FragmentType, useFragment } from "../../__generated__";
+import { ResourcesList_ProjectFragmentFragment } from "../../__generated__/graphql";
 import { ResourcesList_ProjectFragment } from "./fragments";
 
 const Status = ({ status }: { status: string }) => {
@@ -20,16 +21,16 @@ export default function ResourcesList(props: ResourcesListProps) {
     throw new Error('no data???');
   }
 
-
-  const resourceByType = data.resources.edges.filter(
-    edge => Boolean(edge.node)
-  ).reduce((prev, edge) => {
-    prev[edge.node.resource?.__typename] ||= []
-    prev[edge.node.resource?.__typename].push(edge.node)
-    return prev
-  },
-    {}
-  );
+  const resourceByType = {} as Record<string, Array<ResourcesList_ProjectFragmentFragment['resources']['edges'][0]['node']>>
+  for (const edge of data.resources.edges) {
+    if (!edge || !edge.node || !edge.node.resource || !edge.node.resource.__typename) {
+      continue;
+    }
+    if (!resourceByType[edge.node.resource.__typename]) {
+      resourceByType[edge.node.resource.__typename as string] = []
+    }
+    resourceByType[edge.node.resource.__typename].push(edge.node)
+  }
 
   return (
     <>
@@ -43,7 +44,7 @@ export default function ResourcesList(props: ResourcesListProps) {
                   return (
                     <tr key={resource.id}>
                       <td><Status status={resource.status} /></td>
-                      <td>{resource.resource?.name}</td>
+                      <td>{resource.resource.name}</td>
                     </tr>
                   )
                 })}

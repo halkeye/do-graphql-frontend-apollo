@@ -22,7 +22,7 @@ export type Scalars = {
 
 /** Account Information */
 export type Account = Node & {
-  __typename?: 'Account';
+  __typename: 'Account';
   /** Email address */
   email: Scalars['String']['output'];
   /** Has email been verified */
@@ -39,7 +39,7 @@ export type Account = Node & {
 
 /** Account Limits */
 export type AccountLimits = {
-  __typename?: 'AccountLimits';
+  __typename: 'AccountLimits';
   /** How many droplets can you have at once */
   dropletLimit: Scalars['Int']['output'];
   /** How many volumes can you have at once */
@@ -47,7 +47,7 @@ export type AccountLimits = {
 };
 
 export type App = Node & Resource & {
-  __typename?: 'App';
+  __typename: 'App';
   createdAt: Scalars['Time']['output'];
   defaultIngress?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -57,8 +57,14 @@ export type App = Node & Resource & {
   updatedAt?: Maybe<Scalars['Time']['output']>;
 };
 
+export type Dbaas = Node & Resource & {
+  __typename: 'Dbaas';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type Domain = Node & Resource & {
-  __typename?: 'Domain';
+  __typename: 'Domain';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   ttl: Scalars['Int']['output'];
@@ -66,7 +72,7 @@ export type Domain = Node & Resource & {
 };
 
 export type Droplet = Node & Resource & {
-  __typename?: 'Droplet';
+  __typename: 'Droplet';
   backupIDs: Array<Scalars['Int']['output']>;
   disk?: Maybe<Scalars['Int']['output']>;
   id: Scalars['ID']['output'];
@@ -77,6 +83,12 @@ export type Droplet = Node & Resource & {
   vcpus?: Maybe<Scalars['Int']['output']>;
 };
 
+export type KubernetesCluster = Node & Resource & {
+  __typename: 'KubernetesCluster';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 /** An object with an ID */
 export type Node = {
   /** The id of the object. */
@@ -85,7 +97,7 @@ export type Node = {
 
 /** Information about pagination in a connection. */
 export type PageInfo = {
-  __typename?: 'PageInfo';
+  __typename: 'PageInfo';
   /** When paginating forwards, the cursor to continue. */
   endCursor?: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
@@ -98,7 +110,7 @@ export type PageInfo = {
 
 /** Projects allow you to organize your resources into groups that fit the way you work. You can group resources (like Droplets, Spaces, load balancers, domains, and floating IPs) in ways that align with the applications you host on DigitalOcean. */
 export type Project = Node & {
-  __typename?: 'Project';
+  __typename: 'Project';
   createdAt: Scalars['Time']['output'];
   description?: Maybe<Scalars['String']['output']>;
   environment: Scalars['String']['output'];
@@ -109,7 +121,7 @@ export type Project = Node & {
   owner: Team;
   purpose: Scalars['String']['output'];
   /** Project Resources */
-  resources?: Maybe<ProjectResourcesConnection>;
+  resources: ProjectResourcesConnection;
   updatedAt?: Maybe<Scalars['Time']['output']>;
 };
 
@@ -121,7 +133,7 @@ export type ProjectResourcesArgs = {
 };
 
 export type ProjectResource = {
-  __typename?: 'ProjectResource';
+  __typename: 'ProjectResource';
   assignedAt: Scalars['Time']['output'];
   id: Scalars['ID']['output'];
   resource: Resource;
@@ -130,7 +142,7 @@ export type ProjectResource = {
 
 /** ProjectResources Connection */
 export type ProjectResourcesConnection = {
-  __typename?: 'ProjectResourcesConnection';
+  __typename: 'ProjectResourcesConnection';
   /** Edges */
   edges: Array<ProjectResourcesEdge>;
   /** Pagination info */
@@ -139,16 +151,16 @@ export type ProjectResourcesConnection = {
 
 /** ProjectResources Edge */
 export type ProjectResourcesEdge = {
-  __typename?: 'ProjectResourcesEdge';
+  __typename: 'ProjectResourcesEdge';
   /** Cursor */
   cursor: Scalars['ID']['output'];
   /** Project Node */
-  node?: Maybe<ProjectResource>;
+  node: ProjectResource;
 };
 
 /** Projects Connection */
 export type ProjectsConnection = {
-  __typename?: 'ProjectsConnection';
+  __typename: 'ProjectsConnection';
   /** Edges */
   edges: Array<ProjectsEdge>;
   /** Pagination info */
@@ -157,22 +169,22 @@ export type ProjectsConnection = {
 
 /** Project Edge */
 export type ProjectsEdge = {
-  __typename?: 'ProjectsEdge';
+  __typename: 'ProjectsEdge';
   /** Cursor */
   cursor: Scalars['ID']['output'];
   /** Project Resource Node */
-  node?: Maybe<Project>;
+  node: Project;
 };
 
 /** All the queries */
 export type Query = {
-  __typename?: 'Query';
+  __typename: 'Query';
   /** Account Information */
   account: Account;
   /** Get node */
   node?: Maybe<Node>;
   /** All projects */
-  projects?: Maybe<ProjectsConnection>;
+  projects: ProjectsConnection;
 };
 
 
@@ -191,7 +203,7 @@ export type QueryProjectsArgs = {
 };
 
 export type Region = Node & {
-  __typename?: 'Region';
+  __typename: 'Region';
   available?: Maybe<Scalars['Boolean']['output']>;
   features: Array<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -204,9 +216,16 @@ export type Resource = {
   name: Scalars['String']['output'];
 };
 
+/** Not actually implemented as it doesn't return from api */
+export type Space = Node & Resource & {
+  __typename: 'Space';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 /** Team information */
 export type Team = Node & {
-  __typename?: 'Team';
+  __typename: 'Team';
   /** The id of the team */
   id: Scalars['ID']['output'];
   /** What is the teams limits */
@@ -216,7 +235,7 @@ export type Team = Node & {
 };
 
 export type Volume = Node & Resource & {
-  __typename?: 'Volume';
+  __typename: 'Volume';
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -227,17 +246,17 @@ export type ProjectQueryQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQueryQuery = { __typename?: 'Query', project?: { __typename?: 'Account' } | { __typename?: 'App' } | { __typename?: 'Domain' } | { __typename?: 'Droplet' } | (
-    { __typename?: 'Project', name: string, description?: string | null, isDefault: boolean, createdAt: any }
+export type ProjectQueryQuery = { __typename: 'Query', project?: { __typename: 'Account' } | { __typename: 'App' } | { __typename: 'Dbaas' } | { __typename: 'Domain' } | { __typename: 'Droplet' } | { __typename: 'KubernetesCluster' } | (
+    { __typename: 'Project', name: string, description?: string | null, isDefault: boolean, createdAt: any }
     & { ' $fragmentRefs'?: { 'ResourcesList_ProjectFragmentFragment': ResourcesList_ProjectFragmentFragment } }
-  ) | { __typename?: 'Region' } | { __typename?: 'Team' } | { __typename?: 'Volume' } | null };
+  ) | { __typename: 'Region' } | { __typename: 'Space' } | { __typename: 'Team' } | { __typename: 'Volume' } | null };
 
-export type ResourcesList_ProjectFragmentFragment = { __typename?: 'Project', resources?: { __typename?: 'ProjectResourcesConnection', edges: Array<{ __typename?: 'ProjectResourcesEdge', node?: { __typename?: 'ProjectResource', status: string, id: string, resource: { __typename: 'App', id: string, name: string } | { __typename: 'Domain', id: string, name: string } | { __typename: 'Droplet', id: string, name: string } | { __typename: 'Volume', id: string, name: string } } | null }> } | null } & { ' $fragmentName'?: 'ResourcesList_ProjectFragmentFragment' };
+export type ResourcesList_ProjectFragmentFragment = { __typename: 'Project', resources: { __typename: 'ProjectResourcesConnection', edges: Array<{ __typename: 'ProjectResourcesEdge', node: { __typename: 'ProjectResource', status: string, id: string, resource: { __typename: 'App', id: string, name: string } | { __typename: 'Dbaas', id: string, name: string } | { __typename: 'Domain', id: string, name: string } | { __typename: 'Droplet', id: string, name: string } | { __typename: 'KubernetesCluster', id: string, name: string } | { __typename: 'Space', id: string, name: string } | { __typename: 'Volume', id: string, name: string } } }> } } & { ' $fragmentName'?: 'ResourcesList_ProjectFragmentFragment' };
 
 export type SidebarQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SidebarQueryQuery = { __typename?: 'Query', projects?: { __typename?: 'ProjectsConnection', edges: Array<{ __typename?: 'ProjectsEdge', node?: { __typename?: 'Project', name: string, id: string } | null }> } | null };
+export type SidebarQueryQuery = { __typename: 'Query', projects: { __typename: 'ProjectsConnection', edges: Array<{ __typename: 'ProjectsEdge', node: { __typename: 'Project', name: string, id: string } }> } };
 
 export const ResourcesList_ProjectFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ResourcesList_ProjectFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Project"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resources"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"resource"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ResourcesList_ProjectFragmentFragment, unknown>;
 export const ProjectQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProjectQuery"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"project"},"name":{"kind":"Name","value":"node"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Project"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"isDefault"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ResourcesList_ProjectFragment"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ResourcesList_ProjectFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Project"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"resources"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"100"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"resource"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProjectQueryQuery, ProjectQueryQueryVariables>;

@@ -14,7 +14,7 @@ if (!bearerToken || bearerToken === 'null') {
   bearerToken = (new URLSearchParams(location.hash.substring(1))).get("access_token")
   location.hash = "";
   if (!bearerToken || bearerToken === 'null') {
-    location.assign(`https://cloud.digitalocean.com/v1/oauth/authorize?client_id=${encodeURIComponent(process.env.DO_CLIENT_ID)}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=token`)
+    location.assign(`https://cloud.digitalocean.com/v1/oauth/authorize?client_id=${encodeURIComponent(process.env.VITE_DO_CLIENT_ID || '')}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=token`)
   }
 } else {
   localStorage.setItem('do-bearer-token', bearerToken);
