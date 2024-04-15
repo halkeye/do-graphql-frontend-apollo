@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 
-import App from './App.tsx'
-import './index.css'
 import { createFragmentRegistry } from '@apollo/client/cache';
 import { ResourcesList_ProjectFragment } from './components/ResourceList/fragments.ts';
+
+import { lazy } from 'react';
+
 
 let bearerToken = localStorage.getItem('do-bearer-token');
 if (!bearerToken || bearerToken === 'null') {
@@ -19,6 +20,10 @@ if (!bearerToken || bearerToken === 'null') {
 } else {
   localStorage.setItem('do-bearer-token', bearerToken);
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+const App = lazy(() => import('./App.tsx'));
+import './index.css'
 
 const client = new ApolloClient({
   uri: import.meta.env.VITE_GRAPHQL_SERVER || '/query',
