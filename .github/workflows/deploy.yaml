@@ -37,7 +37,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
-      - run: npm run build
+      - run: npm run build -- --base /do-graphql-frontend-apollo/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
