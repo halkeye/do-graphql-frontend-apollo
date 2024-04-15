@@ -11,7 +11,7 @@ on:
 
 env:
   VITE_GRAPHQL_SERVER: https://halkeye-do-api-graphql-y2hv3.ondigitalocean.app/
-  VITE_DO_CLIENT_ID: abc123
+  VITE_DO_CLIENT_ID: eb53135ecdc47a13a47d31ebcc1a3efd290471e40142bfa5b5df32a9e2bdc398
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}
   cancel-in-progress: true
