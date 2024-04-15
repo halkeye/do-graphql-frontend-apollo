@@ -1,5 +1,5 @@
 import {
-  createBrowserRouter,
+  createHashRouter,
   LoaderFunctionArgs,
   Outlet,
   RouterProvider,
@@ -11,7 +11,8 @@ import { RootErrorBoundary } from "./routes/RootErrorBoundry";
 import { Fallback } from "./routes/Fallback";
 import Project from "./components/Project";
 
-const router = createBrowserRouter([
+// GITHUB pages doesn't let you use createBrowserRouter as it doesn't always return index.html
+const router = createHashRouter([
   {
     path: "/",
     element: <Root />,
